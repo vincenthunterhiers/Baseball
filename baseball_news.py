@@ -12,10 +12,6 @@ MLB_SCHEDULE_URL = (
     "?sportId=1&date={date}&hydrate=team,linescore"
 )
 
-NEWS_RSS_URL = (
-    "https://www.mlb.com/feeds/news/rss.xml"
-)
-
 
 def fetch_json(url: str) -> dict:
     with urlopen(url, timeout=10) as response:
@@ -62,11 +58,11 @@ def print_matchups(game_date: str | None = None) -> None:
         print("No games scheduled.")
         return
 
-    for m in matchups:
-        print(f"  {m['away']} @ {m['home']}")
-        print(f"    Status : {m['status']}")
-        if m["gameDate"]:
-            print(f"    Time   : {m['gameDate']}")
+    for matchup in matchups:
+        print(f"  {matchup['away']} @ {matchup['home']}")
+        print(f"    Status : {matchup['status']}")
+        if matchup["gameDate"]:
+            print(f"    Time   : {matchup['gameDate']}")
         print()
 
 
