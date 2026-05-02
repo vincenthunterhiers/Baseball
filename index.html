@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MLB Game Predictor</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">MLB data dashboard</p>
+        <h1>Baseball game predictor</h1>
+        <p class="lede">
+          Pick a date to gather MLB games, first-pitch times, venues, team stats,
+          player stats, projected winners, and market odds when available.
+        </p>
+      </div>
+      <form id="search-form" class="search-panel">
+        <label>
+          Game date
+          <input id="game-date" type="date" required />
+        </label>
+        <label>
+          Odds API key <span class="optional">(optional)</span>
+          <input
+            id="odds-key"
+            type="password"
+            autocomplete="off"
+            placeholder="The Odds API key"
+          />
+        </label>
+        <button type="submit">Gather games</button>
+      </form>
+    </header>
+
+    <main>
+      <section class="info-grid" aria-label="Data source notes">
+        <article>
+          <h2>Data sources</h2>
+          <p>
+            Live schedule, venue, probable pitcher, roster, player, and team stats
+            come from MLB Stats API. Odds can be fetched from The Odds API if you
+            provide a key.
+          </p>
+        </article>
+        <article>
+          <h2>Prediction model</h2>
+          <p>
+            The score compares hitting, run prevention, probable-pitcher signals,
+            home-field advantage, recent run differential, and market implied odds.
+          </p>
+        </article>
+        <article>
+          <h2>Important</h2>
+          <p>
+            This is a research tool, not betting advice. API availability, lineup
+            changes, weather, injuries, and bookmaker movement can change outcomes.
+          </p>
+        </article>
+      </section>
+
+      <section class="toolbar" aria-live="polite">
+        <div id="status" class="status">Choose a date to begin.</div>
+      </section>
+
+      <section id="games" class="games" aria-label="MLB games"></section>
+    </main>
+
+    <template id="game-card-template">
+      <article class="game-card">
+        <div class="game-card__header">
+          <div>
+            <p class="game-time"></p>
+            <h2 class="matchup"></h2>
+            <p class="venue"></p>
+          </div>
+          <div class="prediction-badge">
+            <span class="label">Projected winner</span>
+            <strong class="winner"></strong>
+            <span class="confidence"></span>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <section class="team-panel away-panel">
+            <h3></h3>
+            <dl></dl>
+          </section>
+          <section class="team-panel home-panel">
+            <h3></h3>
+            <dl></dl>
+          </section>
+        </div>
+
+        <section class="detail-panel">
+          <h3>Prediction factors</h3>
+          <ul class="factors"></ul>
+        </section>
+
+        <section class="detail-panel odds-panel">
+          <h3>Odds comparison</h3>
+          <div class="odds"></div>
+        </section>
+
+        <section class="detail-panel">
+          <div class="players-heading">
+            <h3>Player stats</h3>
+            <button class="load-players" type="button">Load active roster stats</button>
+          </div>
+          <div class="players"></div>
+        </section>
+      </article>
+    </template>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
