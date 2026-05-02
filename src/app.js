@@ -30,7 +30,7 @@ async function loadGames(date, oddsKey) {
     setStatus(`Found ${games.length} game${games.length === 1 ? "" : "s"}. Loading team stats and odds...`);
     const [enrichedGames, odds] = await Promise.all([
       Promise.all(games.map((game) => enrichGame(game, date))),
-      oddsKey ? fetchMlbOdds(date, oddsKey).catch(() => []) : Promise.resolve([]),
+      oddsKey ? fetchMlbOdds(oddsKey).catch(() => []) : Promise.resolve([]),
     ]);
 
     renderGames(enrichedGames, odds);

@@ -38,11 +38,13 @@ class StaticAppTests(unittest.TestCase):
 
     def test_odds_api_supports_optional_moneyline_lookup(self):
         source = read("src/oddsApi.js")
+        app_source = read("src/app.js")
 
         self.assertIn("api.the-odds-api.com", source)
         self.assertIn("sports/baseball_mlb/odds", source)
         self.assertIn('markets: "h2h"', source)
         self.assertIn('oddsFormat: "american"', source)
+        self.assertIn("fetchMlbOdds(oddsKey)", app_source)
 
     def test_prediction_model_includes_core_metrics(self):
         source = read("src/predictor.js")
