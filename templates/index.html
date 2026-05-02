@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚾ Baseball Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <!-- Bootstrap 5 (local) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/bootstrap.min.css') }}" />
+  <!-- Font Awesome (local) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/fa.min.css') }}" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="app-header">
+  <div class="container-fluid header-inner">
+    <div class="brand">
+      <span class="brand-icon">⚾</span>
+      <div>
+        <h1 class="brand-title">Baseball Predictor</h1>
+        <p class="brand-sub">Real-time schedules · stats · win predictions · betting odds</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CONTROLS ===== -->
+<div class="controls-bar sticky-top">
+  <div class="container-fluid controls-inner">
+    <!-- Date navigation -->
+    <div class="date-nav">
+      <button class="btn btn-outline-light btn-sm" id="prevDay" title="Previous day">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <div class="date-picker-wrap">
+        <i class="fa fa-calendar-alt date-icon"></i>
+        <input type="date" id="datePicker" class="date-input" value="{{ today }}" />
+      </div>
+      <button class="btn btn-outline-light btn-sm" id="nextDay" title="Next day">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+      <button class="btn btn-outline-light btn-sm ms-2" id="todayBtn" title="Go to today">
+        Today
+      </button>
+    </div>
+
+    <!-- Odds API key (optional) -->
+    <div class="odds-key-wrap">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text bg-transparent border-secondary text-muted">
+          <i class="fa fa-key"></i>
+        </span>
+        <input type="password" id="oddsApiKey" class="form-control bg-transparent border-secondary text-light"
+               placeholder="Odds API key (optional)" autocomplete="off" />
+        <button class="btn btn-outline-secondary btn-sm" id="saveOddsKey" type="button">Save</button>
+      </div>
+      <small class="odds-hint">Free key at <a href="https://the-odds-api.com" target="_blank">the-odds-api.com</a> · held in memory only</small>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="container-fluid py-4">
+
+  <!-- Source badge -->
+  <div id="sourceBadge" class="source-badge d-none"></div>
+
+  <!-- Loading spinner -->
+  <div id="loadingState" class="loading-state d-none">
+    <div class="spinner-border text-warning" role="status"></div>
+    <p>Loading games…</p>
+  </div>
+
+  <!-- Empty state -->
+  <div id="emptyState" class="empty-state d-none">
+    <i class="fa fa-baseball-bat-ball fa-3x mb-3 text-muted"></i>
+    <h4>No games scheduled</h4>
+    <p class="text-muted">There are no MLB games on the selected date.</p>
+  </div>
+
+  <!-- Games grid -->
+  <div id="gamesGrid" class="games-grid"></div>
+
+</main>
+
+<!-- ===== GAME DETAIL MODAL ===== -->
+<div class="modal fade" id="gameModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content bg-dark text-light">
+
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="modalTitle">Game Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <div class="text-center py-5">
+          <div class="spinner-border text-warning"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS (local) -->
+<script src="{{ url_for('static', filename='vendor/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
